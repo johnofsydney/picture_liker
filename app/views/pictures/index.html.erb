@@ -10,12 +10,16 @@
     <%= link_to "New picture", new_picture_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="pictures" class="min-w-full">
+  <div id="pictures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 min-w-full">
     <% @pictures.each do |picture| %>
-      <%= render picture %>
-      <p>
-        <%= link_to "Show this picture", picture, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+      <div class="bg-white p-4 rounded-lg shadow flex flex-col justify-between">
+        <%= render picture %>
+
+        <div class="flex justify-between items-end mt-auto">
+          <%= image_tag "thumbs-up-regular.svg", alt: "Thumbs Up", class: "w-16 h-16" %>
+          <%= image_tag "thumbs-down-regular.svg", alt: "Thumbs Down", class: "w-16 h-16" %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
