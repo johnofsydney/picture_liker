@@ -1,0 +1,4 @@
+<div id="<%= dom_id picture %>">
+  <%= image_tag picture.main_image %>
+  <%= image_tag picture.main_image.variant(resize_to_limit: [150, nil]) %>
+</div>
