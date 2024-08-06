@@ -57,6 +57,20 @@ class PicturesController < ApplicationController
     end
   end
 
+  def add_multiple
+    # Logic to render the form for adding multiple pictures
+  end
+
+  def create_multiple
+    params[:pictures][:images].compact_blank.each do |picture_params|
+      picture = Picture.new
+      picture.main_image.attach(picture_params)
+      picture.save!
+    end
+
+    redirect_to pictures_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_picture
@@ -66,6 +80,5 @@ class PicturesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def picture_params
       params.require(:picture).permit(:main_image)
-      # params.fetch(:picture, {})
     end
 end

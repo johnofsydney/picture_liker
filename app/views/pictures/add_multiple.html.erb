@@ -1,0 +1,8 @@
+<%= form_with url: create_multiple_pictures_path, multipart: true, method: :post do %>
+  <!-- Form fields for multiple pictures -->
+  <%= fields_for :pictures do |picture_form| %>
+    <%= picture_form.label :images %>
+    <%= picture_form.file_field :images, multiple: true %>
+  <% end %>
+  <%= submit_tag "Add Pictures" %>
+<% end %>
