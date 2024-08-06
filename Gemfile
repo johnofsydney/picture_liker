@@ -66,3 +66,15 @@ end
 
 gem 'image_processing', '~> 1.2'
 gem "aws-sdk-s3", require: false
+
+
+# gem 'devise'
+# gem 'activeadmin'
+# gem "sassc-rails"
+
+gem 'activeadmin'
+gem 'sass-rails'
+gem 'devise'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
