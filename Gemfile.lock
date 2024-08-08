@@ -229,6 +229,10 @@ GEM
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    phlex (1.10.3)
+    phlex-rails (1.2.1)
+      phlex (~> 1.10.0)
+      railties (>= 6.1, < 8)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -374,6 +378,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  phlex-rails
   puma (>= 5.0)
   pundit
   rails (~> 7.1.3, >= 7.1.3.4)
