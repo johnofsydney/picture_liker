@@ -1,20 +1,11 @@
 <div class="w-full">
 
-
-
   <% content_for :title, "Pictures" %>
-
-
 
   <div id="pictures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 min-w-full">
     <% @pictures.each do |picture| %>
       <div class="bg-white p-4 rounded-lg shadow flex flex-col justify-between">
         <%= render picture %>
-
-        <div class="flex justify-between items-end mt-auto">
-          <%= image_tag "thumbs-up-regular.svg", alt: "Thumbs Up", class: "w-16 h-16" %>
-          <%= image_tag "thumbs-down-regular.svg", alt: "Thumbs Down", class: "w-16 h-16" %>
-        </div>
       </div>
     <% end %>
   </div>

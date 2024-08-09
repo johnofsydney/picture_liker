@@ -1,0 +1,28 @@
+<div class="w-full">
+
+  <% content_for :title, "Pictures" %>
+
+  <% if @liked_pictures %>
+    <h3 class="text-blue-500 text-xl font-semibold mb-4">Liked Pictures</h3>
+    <div id="liked-pictures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 min-w-full">
+
+      <% @liked_pictures.each do |picture| %>
+        <div class="bg-blue-100 p-4 rounded-lg shadow flex flex-col justify-between border border-blue-500">
+          <%= render picture %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @disliked_pictures %>
+    <h3 class="text-red-500 text-xl font-semibold mb-4 mt-8">Disliked Pictures</h3>
+    <div id="disliked-pictures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 min-w-full">
+
+      <% @disliked_pictures.each do |picture| %>
+        <div class="bg-red-100 p-4 rounded-lg shadow flex flex-col justify-between border border-red-500">
+          <%= render picture %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

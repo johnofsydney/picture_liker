@@ -20,7 +20,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Recent Users Choices" do
           ul do
             User.all.map do |user|
-              li link_to(user.email, pictures_path)
+              li link_to(user.email, "/pictures/results/#{user.id}")
             end
           end
         end
@@ -28,9 +28,7 @@ ActiveAdmin.register_page "Dashboard" do
 
       column do
         panel "Info" do
-          a(href: "https://www.activeadmin.info") { h3 "ActiveAdmin" }
           a(href: '/pictures/add_multiple') { h3 "Add Pictures" }
-          para "Welcome to ActiveAdmin."
         end
       end
     end

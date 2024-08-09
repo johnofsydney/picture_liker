@@ -1,3 +1,32 @@
+<%= turbo_stream_from(:picture_liked_or_disliked) %>
+
 <div id="<%= dom_id picture %>">
   <%= image_tag picture.main_image.variant(resize_to_limit: [450, nil]) %>
 </div>
+
+<% if current_user %>
+  <% liked = PictureUser.exists?(picture:, user: current_user, like: true) %>
+  <% disliked = PictureUser.exists?(picture:, user: current_user, dislike: true) %>
+
+  <div class="flex justify-between items-end mt-2">
+    <%= form_with url: 'picture_users/like', method: :post, local: true do |form| %>
+      <%= form.hidden_field :picture_id, value: picture.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <% if liked %>
+        <%= form.submit "Liked", class: "bg-blue-500 text-white py-2 px-4 rounded" %>
+      <% else %>
+        <%= form.submit "Like", class: "bg-white text-blue-500 py-2 px-4 rounded border border-blue-500" %>
+      <% end %>
+    <% end %>
+
+    <%= form_with url: 'picture_users/dislike', method: :post, local: true do |form| %>
+      <%= form.hidden_field :picture_id, value: picture.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <% if disliked %>
+        <%= form.submit "Disliked", class: "bg-red-500 text-white py-2 px-4 rounded" %>
+      <% else %>
+        <%= form.submit "Dislike", class: "bg-white text-red-500 py-2 px-4 rounded border border-red-500" %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

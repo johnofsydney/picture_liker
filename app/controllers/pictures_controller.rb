@@ -6,6 +6,16 @@ class PicturesController < ApplicationController
     @pictures = Picture.all
   end
 
+  def results
+    user = User.find_by(id: params[:user_id].to_i)
+
+    @liked_pictures = Picture.joins(:picture_users)
+                             .where(picture_users: { user_id: user.id, like:true })
+
+    @disliked_pictures = Picture.joins(:picture_users)
+                                .where(picture_users: { user_id: user.id, dislike: true })
+  end
+
   # GET /pictures/1 or /pictures/1.json
   def show
   end
