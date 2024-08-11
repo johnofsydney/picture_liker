@@ -2,7 +2,27 @@ class PictureUser < ApplicationRecord
   belongs_to :picture
   belongs_to :user
 
+  validate :max_likes
+  validate :max_dislikes
   validate :like_or_dislike
+
+  def max_likes
+    return unless self.like
+
+    current_likes = PictureUser.where(user_id:, like: true).count
+    return unless current_likes >= User::MAX_LIKES
+
+    errors.add(:base, "You can't like more than #{User::MAX_LIKES} pictures")
+  end
+
+  def max_dislikes
+    return unless self.dislike
+
+    current_likes = PictureUser.where(user_id:, dislike: true).count
+    return unless current_likes >= User::MAX_DISLIKES
+
+    errors.add(:base, "You can't dislike more than #{User::MAX_DISLIKES} picture")
+  end
 
   def like_or_dislike
     if like && dislike

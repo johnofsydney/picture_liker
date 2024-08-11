@@ -3,7 +3,7 @@
     <%= link_to "Log in", new_session_path(resource_name), class: "block text-blue-600 hover:text-blue-800" %>
   <% end %>
 
-  <% if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <% if devise_mapping.registerable? && controller_name != 'registrations' && false %>
     <%= link_to "Sign up", new_registration_path(resource_name), class: "block text-blue-600 hover:text-blue-800" %>
   <% end %>
 
