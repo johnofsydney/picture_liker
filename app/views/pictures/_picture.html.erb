@@ -1,8 +1,13 @@
 <%= turbo_stream_from(:picture_liked_or_disliked) %>
 
 <div id="<%= dom_id picture %>">
-  <%= image_tag picture.main_image.variant(resize_to_limit: [450, nil]) %>
+  <% if current_admin_user %>
+    <%= link_to(image_tag(picture.main_image.variant(resize_to_limit: [450, nil])), picture_path(picture)) %>
+  <% else %>
+    <%= image_tag picture.main_image.variant(resize_to_limit: [450, nil]) %>
+  <% end %>
 </div>
+
 
 <% if current_user %>
   <% liked = PictureUser.exists?(picture:, user: current_user, like: true) %>
