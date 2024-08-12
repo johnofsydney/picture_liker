@@ -74,7 +74,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: '6l0l5.hatchboxapp.com/', port: 3000 }
+  config.action_mailer.default_url_options = { host: '6l0l5.hatchboxapp.com/', protocol: :https }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
