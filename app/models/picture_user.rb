@@ -12,7 +12,7 @@ class PictureUser < ApplicationRecord
     current_likes = PictureUser.where(user_id:, like: true).count
     return unless current_likes >= User::MAX_LIKES
 
-    errors.add(:base, "You can't like more than #{User::MAX_LIKES} pictures")
+    errors.add(:base, "You can only like #{User::MAX_LIKES} #{'picture'.pluralize(User::MAX_LIKES)}")
   end
 
   def max_dislikes
@@ -21,7 +21,7 @@ class PictureUser < ApplicationRecord
     current_likes = PictureUser.where(user_id:, dislike: true).count
     return unless current_likes >= User::MAX_DISLIKES
 
-    errors.add(:base, "You can't dislike more than #{User::MAX_DISLIKES} picture")
+    errors.add(:base, "You can only dislike #{User::MAX_DISLIKES} #{'picture'.pluralize(User::MAX_DISLIKES)}")
   end
 
   def like_or_dislike
@@ -30,3 +30,4 @@ class PictureUser < ApplicationRecord
     end
   end
 end
+

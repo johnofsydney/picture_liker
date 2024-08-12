@@ -10,14 +10,23 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Recent Users Choices" do
           ul do
             User.all.map do |user|
-              li link_to(user.email, "/pictures/results/#{user.id}")
+              user_identifier = user.name || user.email
+              li link_to(user_identifier, "/pictures/results/#{user.id}")
             end
+          end
+        end
+        panel "Developer TODOs" do
+          ul do
+
+              li 'try to upload photos on background job'
+              li 'rollbar'
+
           end
         end
       end
 
       column do
-        panel "Info" do
+        panel "Actions" do
           a(href: '/pictures/add_multiple') { h3 "Add Pictures" }
           a(href: '/pictures') { h3 "Gallery" }
         end

@@ -1,0 +1,33 @@
+<div id=<%= "liking-buttons-#{picture.id}" %> class="flex justify-between items-end mt-2">
+  <% if current_user %>
+    <% liked = PictureUser.exists?(picture:, user: current_user, like: true) %>
+    <% disliked = PictureUser.exists?(picture:, user: current_user, dislike: true) %>
+
+
+    <%= form_with url: '/picture_users/like', method: :post, local: true do |form| %>
+    <%# form_with url: '/picture_users/like', method: :post, local: true, data: { turbo: false } do |form| %>
+      <%= form.hidden_field :picture_id, value: picture.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <% if liked %>
+        <%= form.submit "Liked", class: "bg-blue-500 text-white py-2 px-4 rounded" %>
+      <% elsif (current_user.likes >= User::MAX_LIKES) %>
+        <%= form.submit "Like", class: "bg-gray-300 text-gray-500 py-2 px-4 rounded border border-gray-500 cursor-not-allowed", disabled: true %>
+      <% else %>
+        <%= form.submit "Like", class: "bg-white text-blue-500 py-2 px-4 rounded border border-blue-500" %>
+      <% end %>
+    <% end %>
+
+    <%= form_with url: '/picture_users/dislike', method: :post, local: true do |form| %>
+    <%# form_with url: '/picture_users/dislike', method: :post, local: true, data: { turbo: false } do |form| %>
+      <%= form.hidden_field :picture_id, value: picture.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <% if disliked %>
+        <%= form.submit "Disliked", class: "bg-red-500 text-white py-2 px-4 rounded" %>
+      <% elsif (current_user.dislikes >= User::MAX_DISLIKES) %>
+        <%= form.submit "Dislike", class: "bg-gray-300 text-gray-500 py-2 px-4 rounded border border-gray-500 cursor-not-allowed", disabled: true %>
+      <% else %>
+        <%= form.submit "Dislike", class: "bg-white text-red-500 py-2 px-4 rounded border border-red-500" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

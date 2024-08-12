@@ -8,4 +8,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :picture_users, dependent: :delete_all
+
+  def likes
+    PictureUser.where(user_id: self.id, like: true).count
+  end
+
+  def dislikes
+    PictureUser.where(user_id: self.id, dislike: true).count
+  end
 end

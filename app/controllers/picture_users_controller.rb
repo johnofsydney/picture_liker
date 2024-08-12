@@ -1,22 +1,49 @@
 class PictureUsersController < InheritedResources::Base
-
+  include ActionView::RecordIdentifier # adds `dom_id`
 
   def like
-    record.update(like: !record.like, dislike: false)
+    # record.update(like: !record.like, dislike: false)
 
-    redirect_to pictures_url, notice:
-
-    # TODO - use turbo to replace the buttons
-    # head :no_content
+    respond_to do |format|
+      if record.update(like: !record.like, dislike: false)
+        format.html { redirect_to pictures_url, notice: }
+        format.turbo_stream do
+          # Pass an array of turbo_streams to the render call
+          render turbo_stream:
+            [
+              # while it would be nice to replace just the button that has been liked,
+              # I also want to grey out / disable all of the buttons on the whole page when the user has reached their limit of likes
+              turbo_stream.replace("pictures", partial: 'pictures/pictures', locals: { pictures: Picture.all }),
+              turbo_stream.replace("notice", partial: 'partials/notice', locals: { notice: })
+            ]
+        end
+      else
+        format.html { redirect_to pictures_url, notice: }
+      end
+    end
   end
 
   def dislike
-    record.update(like: false, dislike: !record.dislike)
+    # if you use the arg ', data: { turbo: false }' in the form_with tag,
+    # then theoretically you can use the redirect_to plus anchor to scroll to the picture that was just disliked
+    # record.update(like: false, dislike: !record.dislike)
+    # redirect_to pictures_path, anchor: "picture_#{record.picture.id}", notice:
+    # but it doesn't work for me, so I'm using turbo_stream instead
 
-    redirect_to pictures_url, notice:
-
-    # TODO - use turbo to replace the buttons
-    # head :no_content
+    respond_to do |format|
+      if record.update(like: false, dislike: !record.dislike)
+        format.html { redirect_to pictures_url, notice: }
+        format.turbo_stream do
+          render turbo_stream:
+            [
+              turbo_stream.replace("pictures", partial: 'pictures/pictures', locals: { pictures: Picture.all }),
+              turbo_stream.replace("notice", partial: 'partials/notice', locals: { notice: })
+            ]
+        end
+      else
+        format.html { redirect_to pictures_url, notice: }
+      end
+    end
   end
 
   private
