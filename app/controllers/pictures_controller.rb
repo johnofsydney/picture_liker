@@ -91,7 +91,7 @@ class PicturesController < ApplicationController
 
     params[:pictures][:images].compact_blank.each do |picture_params|
       picture = Picture.new
-      picture.main_image.attach(picture_params)
+      picture.image.attach(picture_params)
       picture.save!
     end
 
@@ -106,6 +106,6 @@ class PicturesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def picture_params
-      params.require(:picture).permit(:main_image)
+      params.require(:picture).permit(:image)
     end
 end

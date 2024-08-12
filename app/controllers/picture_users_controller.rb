@@ -26,7 +26,7 @@ class PictureUsersController < InheritedResources::Base
   def dislike
     # if you use the arg ', data: { turbo: false }' in the form_with tag,
     # then theoretically you can use the redirect_to plus anchor to scroll to the picture that was just disliked
-    # record.update(like: false, dislike: !record.dislike)
+    #
     # redirect_to pictures_path, anchor: "picture_#{record.picture.id}", notice:
     # but it doesn't work for me, so I'm using turbo_stream instead
 

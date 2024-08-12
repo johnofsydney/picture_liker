@@ -1,6 +1,6 @@
 ActiveAdmin.register Picture do
 
-  remove_filter :main_image_attachment, :main_image_blob
+  remove_filter :image_attachment, :image_blob
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

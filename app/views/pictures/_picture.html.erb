@@ -2,9 +2,9 @@
 
 <div id="<%= dom_id picture %>">
   <% if current_admin_user %>
-    <%= link_to(image_tag(picture.main_image.variant(resize_to_limit: [450, nil])), picture_path(picture)) %>
+    <%= link_to(image_tag(picture.image.variant(resize_to_limit: [450, nil])), picture_path(picture)) %>
   <% else %>
-    <%= image_tag picture.main_image.variant(resize_to_limit: [450, nil]) %>
+    <%= image_tag picture.image.variant(resize_to_limit: [450, nil]) %>
   <% end %>
 </div>
 
