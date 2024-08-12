@@ -7,7 +7,7 @@ ActiveAdmin.register User do
   #
   actions :index, :show, :edit
 
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at
+  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name
   #
   # or
   #
@@ -31,14 +31,22 @@ ActiveAdmin.register User do
       else
         render :new
       end
+    end
 
+    def update
+      @user = User.find(params[:id])
+      if @user.update(permitted_params[:user])
+        redirect_to admin_user_path(@user)
+      else
+        render :edit
+      end
     end
   end
 
 
   form do |f|
-    f.inputs "Create new user with password: 'password'" do
-      f.input :email
+    f.inputs "#{resource.email}" do
+      f.input :name
     end
     f.actions
   end

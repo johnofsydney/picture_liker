@@ -80,3 +80,4 @@ gem 'draper'
 gem 'pundit'
 
 gem 'phlex-rails'
+gem "sidekiq", "~> 7.3"
