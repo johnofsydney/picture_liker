@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+
   resources :picture_users do
     collection do
       post 'like'
@@ -25,4 +28,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pictures#index"
+
+  mount Sidekiq::Web => "/sidekiq"
 end

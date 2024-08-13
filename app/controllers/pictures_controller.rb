@@ -93,6 +93,7 @@ class PicturesController < ApplicationController
       picture = Picture.new
       picture.image.attach(picture_params)
       picture.save!
+      # AddPhotosJob.perform_async(picture_params.tempfile.to_path, picture_params.original_filename)
     end
 
     redirect_to pictures_url
