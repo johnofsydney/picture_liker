@@ -90,6 +90,8 @@ class PicturesController < ApplicationController
     redirect_to pictures_url and return unless current_admin_user
 
     params[:pictures][:images].compact_blank.each do |picture_params|
+      next unless ActiveStorage.variable_content_types.include?(picture_params.content_type)
+
       picture = Picture.new
       picture.image.attach(picture_params)
       picture.save!

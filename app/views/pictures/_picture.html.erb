@@ -2,11 +2,18 @@
 
 <div id="<%= dom_id picture %>">
   <% if current_admin_user %>
-    <%= link_to(image_tag(picture.image.variant(resize_to_limit: [450, nil])), picture_path(picture)) %>
+    <% begin %>
+      <%= link_to(image_tag(picture.image.variant(resize_to_limit: [450, nil])), picture_path(picture)) %>
+    <% rescue ActiveStorage::InvariableError %>
+      <p>Image <%= picture.id %> could not be resized. It is NOT shown to the users</p>
+      <%= link_to(image_tag(picture.image), picture_path(picture)) %>
+    <% end %>
   <% else %>
-    <%= image_tag picture.image.variant(resize_to_limit: [450, nil]) %>
+    <% begin %>
+      <%= image_tag picture.image.variant(resize_to_limit: [450, nil]) %>
+    <% rescue ActiveStorage::InvariableError %>
+    <% end %>
   <% end %>
 </div>
 
 <%= render 'pictures/liking_form', picture:, user: current_user %>
-

@@ -17,8 +17,6 @@ ActiveAdmin.register_page "Dashboard" do
         end
         panel "Developer TODOs" do
           ul do
-
-              li 'try to upload photos on background job'
               li 'rollbar'
 
           end
