@@ -91,6 +91,7 @@ class PicturesController < ApplicationController
 
     params[:pictures][:images].compact_blank.each do |picture_params|
       next unless ActiveStorage.variable_content_types.include?(picture_params.content_type)
+      next if picture_params.content_type.include?('svg')
 
       picture = Picture.new
       picture.image.attach(picture_params)
