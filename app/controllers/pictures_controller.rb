@@ -89,6 +89,8 @@ class PicturesController < ApplicationController
   def create_multiple
     redirect_to pictures_url and return unless current_admin_user
 
+    new_picture_ids = []
+
     params[:pictures][:images].compact_blank.each do |picture_params|
       next unless ActiveStorage.variable_content_types.include?(picture_params.content_type)
       next if picture_params.content_type.include?('svg')
@@ -96,8 +98,12 @@ class PicturesController < ApplicationController
       picture = Picture.new
       picture.image.attach(picture_params)
       picture.save!
+
+      new_picture_ids << picture.id
       # AddPhotosJob.perform_async(picture_params.tempfile.to_path, picture_params.original_filename)
     end
+
+    FetchLabelsJob.perform_async(new_picture_ids)
 
     redirect_to pictures_url
   end

@@ -82,3 +82,4 @@ gem 'pundit'
 gem 'phlex-rails'
 gem "sidekiq", "~> 7.3"
 gem 'bullet'
+gem 'aws-sdk-rekognition'
