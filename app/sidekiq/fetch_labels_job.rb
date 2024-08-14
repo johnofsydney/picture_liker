@@ -2,6 +2,7 @@ class FetchLabelsJob
   include Sidekiq::Job
 
   def perform(picture_ids)
+    p "fetch labels for pictures #{picture_ids}"
     return if Rails.env.development?
 
     Picture.where(id: picture_ids).find_each do |picture|
@@ -13,9 +14,9 @@ class FetchLabelsJob
       labels.each do |label|
         confident_labels << label.name if label.confidence > 95
       end
-    end
 
-    picture.update!(labels: confident_labels.join(', '))
+      picture.update!(labels: confident_labels.join(', '))
+    end
   end
 end
 
