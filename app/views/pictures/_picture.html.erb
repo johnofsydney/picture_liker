@@ -4,6 +4,7 @@
   <% if current_admin_user %>
     <% begin %>
       <%= link_to(image_tag(picture.image.variant(resize_to_limit: [450, nil])), picture_path(picture)) %>
+      <p class="text-sm text-gray-600 text-center italic mt-4"><%= picture.labels %></p>
     <% rescue ActiveStorage::InvariableError %>
       <p>Image <%= picture.id %> could not be resized. It is NOT shown to the users</p>
       <%= link_to(image_tag(picture.image), picture_path(picture)) %>

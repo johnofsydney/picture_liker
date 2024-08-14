@@ -2,7 +2,7 @@ class FetchLabelsJob
   include Sidekiq::Job
 
   def perform(picture_ids)
-    return unless Rails.env.production?
+    return if Rails.env.development?
 
     Picture.where(id: picture_ids).find_each do |picture|
       p "find labels with rekognition for picture #{picture.id}"
